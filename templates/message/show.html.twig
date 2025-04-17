@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="row border">
+        <div>
+            <p><strong>{{ message.content }}</strong></p>
+        </div>
+        <div>
+            <p>Created at : {{ message.createdAt|date("d/m/Y") }}</p>
+        </div>
+        <a href="{{ path('delete_message', {id:message.id}) }}" class="btn btn-danger">Delete</a>
+            <a href="{{ path('edit_message', {id:message.id}) }}" class="btn btn-warning">Edit</a>
+        <a href="{{ path('app_messages') }}" class="btn btn-secondary">Return</a>
+
+
+    </div>
+{% endblock %}
+

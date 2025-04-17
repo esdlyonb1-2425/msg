@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+<h2>Edit the message : </h2>
+
+{{ form_start(form) }}
+    {{ form_widget(form.content) }}
+<button class="btn btn-success" type="submit">Send</button>
+{{ form_end(form) }}
+
+
+
+{% endblock %}
+

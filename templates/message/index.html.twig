@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+
+    {% for message in messages %}
+
+    <div class="row border border-dark">
+        <div>
+            <p><strong>{{ message.content }}</strong></p>
+        </div>
+        <div>
+            <p>Created at : {{ message.createdAt|date("d/m/Y") }}</p>
+        </div>
+        <a href="{{ path('show_message', {id:message.id}) }}" class="btn btn-primary">Read</a>
+
+    </div>
+
+
+    {% endfor %}
+
+
+{% endblock %}
