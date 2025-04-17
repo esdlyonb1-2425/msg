@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Message;
+use App\Entity\Response as ResponseEntity;
 use App\Form\MessageType;
 
 
+use App\Form\ResponseType;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,10 +79,24 @@ final class MessageController extends AbstractController
         return $this->redirectToRoute('app_messages');
 }
         #[Route('/message/{id}', name: 'show_message', priority: -1)]
-            public function show(Message $message): Response
+            public function show(Message $message, Request $request, EntityManagerInterface $manager): Response
         {
+            $response = new ResponseEntity();
+            $responseForm = $this->createForm(ResponseType::class, $response);
+            $responseForm->handleRequest($request);
+            if($responseForm->isSubmitted() && $responseForm->isValid())
+            {
+                $response->setCreateAt(new \DateTime());
+                $response->setMessage($message);
+                $manager->persist($response);
+                $manager->flush();
+                return $this->redirectToRoute('show_message', ['id' => $message->getId()]);
+            }
+
+
             return $this->render('message/show.html.twig', [
                 'message'=>$message,
+                'form'=>$responseForm->createView(),
             ]);
         }
 

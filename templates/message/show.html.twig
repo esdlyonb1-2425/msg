@@ -18,5 +18,25 @@
 
 
     </div>
+
+    <div class="border border-dark">
+        {{ form_start(form) }}
+        {{ form_widget(form.content) }}
+        <button type="submit" class="btn btn-success">Send</button>
+        {{ form_end(form) }}
+
+
+
+    </div>
+
+    <div class="border">
+        {% for response in message.responses %}
+
+            <p>At : {{ response.createAt|date("m/d") }}</p>
+            <p><strong>{{ response.content }}</strong></p>
+
+        {% endfor %}
+    </div>
+
 {% endblock %}
 

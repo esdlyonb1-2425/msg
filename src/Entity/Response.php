@@ -21,6 +21,9 @@ class Response
     #[ORM\JoinColumn(nullable: false)]
     private ?Message $message = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +49,18 @@ class Response
     public function setMessage(?Message $message): static
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeInterface $createAt): static
+    {
+        $this->createAt = $createAt;
 
         return $this;
     }
